@@ -72,7 +72,7 @@ export default function CreatePoll() {
             <Typography variant="h5" >designing options:</Typography>
             {options.map((option,index)=>(
                 <div key={index}>
-                    <TextField id="option" label="option" variant="standard" value={option.option}/>
+                    <TextField id="option" label={index} variant="standard" value={option.option}/>
                     <IconButton onClick={handleAddOption}><AddIcon/></IconButton>
                     <IconButton onClick={handleDropOption}><DeleteIcon/></IconButton>
                 </div>
