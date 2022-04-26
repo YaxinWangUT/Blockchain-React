@@ -23,20 +23,22 @@ ViewResult和Vote从列表点进去我都设置了传入poll_id这个参数
 
 
 ## API
-##### homepage
-verifyAddress(string address)
-发送address
-后端返回地址验证是否成功，成功后跳转主页
-  
-登录后主页显示三个List：createdPoll, registerPoll, votePoll; 分别是该用户发起的投票，等待该用户register的投票，以及register后可以vote的投票
-getCreatedPoll(string address)
-getRegisterPoll(string address)
-getVotePoll(string address)
-后端返回的参数包括需要包含poll_id(用于唯一识别这一个投票), deceiption, voted(该用户是否已经投过票了), status(registration，open or closed, 对应注册阶段，投票阶段，公布阶段)
+verifyAddress(string address)  
+发送address  
+后端返回地址验证是否成功，成功后跳转主页  
 
-verifyCreate(string address)
-用户点击create new poll后验证用户是否有create的资格(持股比例超过某个值)
-后端返回true or false
+
+
+getCreatedPoll(string address)  
+getRegisterPoll(string address)  
+getVotePoll(string address)  
+登录后主页显示三个List：createdPoll, registerPoll, votePoll; 分别是该用户发起的投票，等待该用户register的投票，以及register后可以vote的投票  
+后端返回的参数包括需要包含poll_id(用于唯一识别这一个投票), deceiption, voted(该用户是否已经投过票了), status(registration，open or closed, 对应注册阶段，投票阶段，公布阶段)  
+   
+   
+verifyCreate(string address)  
+用户点击create new poll后验证用户是否有create的资格(持股比例超过某个值)  
+后端返回true or false  
 
 
 
