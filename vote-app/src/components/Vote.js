@@ -8,6 +8,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { useParams} from "react-router";
 import { List } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 const mdTheme = createTheme({
     palette: {
@@ -21,7 +22,8 @@ export default function Vote() {
     //Get poll id when clicked into this component
     const params = useParams();
     const poll_id = params.id;
-
+    let navigate = useNavigate();
+    
     const Poll = {
         status: "voting",
         description: 'Who is the best teacher in our university?',
@@ -34,6 +36,7 @@ export default function Vote() {
 
     const handleSubmit = (event) => {
         console.log("poll created")
+        navigate('/voted');
     }
     const [checked, setChecked]=useState([0]);
     const handleCheck=(value)=>()=>{
