@@ -20,18 +20,18 @@ export default function ViewResult() {
     }
 
     const Poll = {
-        status: "closed",
-        description: 'Which is better? Cat or dog?',
-        startTime:'2022.01.23',
-        endTime:'2022.04.23',
-        votingBar:'100',
-        registrated:'234',
+        status: "",
+        description: '',
+        startTime:'',
+        endTime:'',
+        votingBar:'',
+        registrated:'',
         };
-    const [options,setOptions] = useState([
-            {option: 'Cat',result: 83},
-            {option: 'Dog',result: 78},
-            {option: 'Neigher',result: 1},
-    ])
+    const [options,setOptions] = useState([])
+    componentDidMount() {
+    const data = Web3Service.call("getResult");
+    this.setState({ Pol: data });
+  }
 
     return (
         <Box
