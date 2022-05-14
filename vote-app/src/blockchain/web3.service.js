@@ -27,13 +27,15 @@ export default class Web3Service {
     
     // Functions that have return value
     // fnName: corresponding function in Solidity
-    // args: parameters that should be passed to Solidity
+    // args: parameters that should be passed to Solidity, account is already included in the funciton so don't need to write in args
+    // for example: call("verifyAddress");
     async call(fnName, ...args) {
         const account = this.getAccount();
         return this.contract.methods[fnName](...args).call({from: account});
     }
 
     // Functions without return value
+    // for example: execute("create_poll", pollName, question, options, registerTime, voteTime);
     async execute(fnName, ...args) {
         const account = this.getAccount();
         this.contract.methods[fnName](...args).call({from: account});
