@@ -10,6 +10,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Poll from "../../Utils/setLocal";
+
+import Web3Service from "../../blockchain/web3.service";
 
 const mdTheme = createTheme({
   palette: {
@@ -17,25 +20,25 @@ const mdTheme = createTheme({
   },
 });
 
-// Generate Order Data
-// Data from backend: poll id (string), poll description(string), poll status (true/false)
-function createData(id, description, status) {
-  return { id, description, status };
-}
-
-//arrays of objects
-const rows_test = [
-  createData("001", "Which is better? Cat or dog?", "false"),
-  createData("002", "Who is the best teacher in our university?", "true"),
-];
-
 //Project list component
 class CreatedList extends React.Component {
   constructor() {
+    console.log(Poll.getState());
     super();
     this.state = {
-      listItems: rows_test,
+      listItems: this.rows_test1,
     };
+  }
+
+  componentDidMount() {
+    const data = Web3Service.call("getRegisterPoll");
+    this.setState({ listItems: data });
+  }
+
+  // Generate Order Data
+  // Data from backend: poll id (string), poll description(string), poll status (true/false)
+  createData(id, description, status) {
+    return { id, description, status };
   }
 
   //Click to view poll result

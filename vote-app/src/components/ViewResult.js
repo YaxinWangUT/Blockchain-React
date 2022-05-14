@@ -5,12 +5,19 @@ import { Box } from "@mui/system";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-
+import Button from "@mui/material/Button";
+import { useNavigate } from 'react-router-dom';
 
 export default function ViewResult() {
     //Get poll id when clicked into this component
     const params = useParams();
     const poll_id = params.id;
+
+    let navigate = useNavigate();
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      navigate('/home');
+    }
 
     const Poll = {
         status: "closed",
@@ -79,8 +86,11 @@ export default function ViewResult() {
                     </TableRow>
                 ))}
             </TableBody>
+            
          </table>
+         <div><Button type="submit"onClick={handleSubmit} variant="contained" sx={{mt:20, maxWidth: '300px'}}>Back to homepage</Button></div>
         </Grid>
+        
       </Box>
       );
 }

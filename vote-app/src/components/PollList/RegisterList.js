@@ -9,17 +9,13 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Box from "@mui/material/Box";
+import Poll from "../../Utils/setLocal";
+import { useNavigate } from "react-router-dom";
 
 import Web3Service from "../../blockchain/web3.service";
 
-// Generate Order Data
-function createData(id, description, voted, status) {
-  return { id, description, voted, status };
-}
-
-
 //Project list component
-class CreatedList extends React.Component {
+class RegisterList extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -28,38 +24,34 @@ class CreatedList extends React.Component {
   }
 
   componentDidMount() {
-    const data = Web3Service.call("getVotePoll");
+    const data = Web3Service.call("getRegesterPoll");
     this.setState({ listItems: data });
   }
 
+  //arrays of objects
+  rows_test1 = [];
+
+  rows_test3 = [this.createData("005", Poll.getQuestion(), "true")];
+
+  handleClick = () => {
+    //let navigate = useNavigate();
+    console.log("clicked！");
+    Poll.setRegister();
+    //navigate('/home');
+  };
+
   //Click to view poll result
-  resultButton = (id) => {
+  registerButton = () => {
     return (
-      <Button
-        color="blue"
-        component={Link}
-        to={{
-          pathname: `/result/${id}`,
-        }}
-      >
-        View
+      <Button color="blue" href="/home" onClick={this.handleClick}>
+        Register
       </Button>
     );
   };
 
   //Click to vote
-  voteButton = (id) => {
-    return (
-      <Button
-        color="blue"
-        component={Link}
-        to={{
-          pathname: `/vote/${id}`,
-        }}
-      >
-        View
-      </Button>
-    );
+  alertButton = () => {
+    return <Button color="blue">View</Button>;
   };
 
   render() {
@@ -69,9 +61,7 @@ class CreatedList extends React.Component {
           <TableHead>
             <TableRow>
               <TableCell>Description</TableCell>
-              <TableCell>Voted</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell align="right">Details</TableCell>
+              <TableCell align="right"> </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -90,24 +80,12 @@ class CreatedList extends React.Component {
                     {row.description}
                   </Box>
                 </TableCell>
-                {row.voted === "true" ? (
-                  <TableCell>Yes</TableCell>
-                ) : (
-                  <TableCell>No</TableCell>
-                )}
-                {/* Status */}
+
+                {/* If registered */}
                 {row.status === "true" ? (
-                  <TableCell>In progress</TableCell>
+                  <TableCell align="right">You have registered</TableCell>
                 ) : (
-                  <TableCell>Closed</TableCell>
-                )}
-                {/* Link to view result */}
-                {row.status === "true" ? (
-                  <TableCell align="right">{this.voteButton(row.id)}</TableCell>
-                ) : (
-                  <TableCell align="right">
-                    {this.resultButton(row.id)}
-                  </TableCell>
+                  <TableCell align="right">{this.registerButton()}</TableCell>
                 )}
               </TableRow>
             ))}
@@ -118,4 +96,4 @@ class CreatedList extends React.Component {
   }
 }
 
-export default CreatedList;
+export default RegisterList;

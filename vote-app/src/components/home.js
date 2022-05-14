@@ -12,6 +12,7 @@ import Grid from "@mui/material/Grid";
 
 import CreatedList from "./PollList/CreatedList";
 import AttendedList from "./PollList/AttendedList";
+import RegisterList from "./PollList/RegisterList";
 
 const mdTheme = createTheme({
   palette: {
@@ -44,13 +45,25 @@ function CreatedPolls() {
   );
 }
 
+
 function AttendedPolls() {
   return (
     <Container component="main" sx={{ mt: 5, mb: 2 }} maxWidth="sm">
       <Typography variant="h4" component="h3">
-        Polls I Attend
+        Polls to be Voted
       </Typography>
       <AttendedList />
+    </Container>
+  );
+}
+
+function RegisterPolls() {
+  return (
+    <Container component="main" sx={{ mt: 5, mb: 2 }} maxWidth="sm">
+      <Typography variant="h4" component="h3">
+        Polls to be Registered
+      </Typography>
+      <RegisterList />
     </Container>
   );
 }
@@ -76,6 +89,10 @@ export default function Home() {
         >
           <Grid item xs={3}>
             <CreatedPolls />
+          </Grid>
+
+          <Grid item xs={3}>
+            <RegisterPolls />
           </Grid>
 
           <Grid item xs={3}>

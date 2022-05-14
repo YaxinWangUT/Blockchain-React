@@ -7,6 +7,7 @@ import Home from './components/home';
 import CreatePoll from './components/CreatePoll';
 import ViewResult from './components/ViewResult';
 import Vote from './components/Vote';
+import AfterVote from './components/AfterVote'
 import NotFound from './components/NotFound';
 
 const Router = [
@@ -29,6 +30,7 @@ const Router = [
             { path: 'create', element: <CreatePoll /> },
           { path: 'vote/:id', element: <Vote /> },
           { path: 'result/:id', element: <ViewResult /> },
+          { path: 'voted', element: <AfterVote /> },
             { path: '404', element: <NotFound /> },
             { path: '*', element: <Navigate to="/404" /> }
         ]

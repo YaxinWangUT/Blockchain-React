@@ -34,6 +34,7 @@ export default function Vote() {
             {option: 'Professor Abhay Samant'},
     ])
 
+
     const handleSubmit = (event) => {
         console.log("poll created")
         navigate('/voted');

@@ -10,6 +10,9 @@ import Typography from "@mui/material/Typography";
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add"
 import DeleteIcon from "@mui/icons-material/Delete"
+import { useNavigate } from 'react-router-dom';
+
+import Poll from "../Utils/setLocal"
 
 const mdTheme = createTheme({
     palette: {
@@ -20,12 +23,21 @@ const mdTheme = createTheme({
   });
 
 export default function CreatePoll() {
+    let navigate = useNavigate();
     const [options,setOptions] = useState([
         {option: ''},
         {option: ''},
     ])
+    const [descript, setDescript] = useState("");
     const handleSubmit = (event) => {
-        console.log("poll created")
+        console.log("poll created");
+        console.log(Poll.getState());
+        Poll.questionCreated(descript);
+        console.log(Poll.getState());
+        console.log(Poll.getQuestion());
+        //console.log(descript);
+        navigate('/home');
+
     }
     const handleAddOption = (event) => {
         setOptions([...options,{option: ''}])
@@ -63,7 +75,12 @@ export default function CreatePoll() {
         </Typography>
         
         <form>
-            <div><TextField id="descript" label="decription" variant="filled"/></div>
+            <div><TextField 
+            id="descript" 
+            label="decription" 
+            variant="filled" 
+            value = {descript}
+            onChange = {(e) => setDescript(e.target.value)} /></div>
             <div><TextField id="time1" label="starting time" variant="filled"/></div>
             <div><TextField id="time2" label="registration end time" variant="filled"/></div>
             <div><TextField id="time3" label="voting end time" variant="filled"/></div>
