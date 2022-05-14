@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from 'react-router-dom';
+import Web3Service from "../blockchain/web3.service"
 
 export default function ViewResult() {
     //Get poll id when clicked into this component
@@ -19,18 +20,25 @@ export default function ViewResult() {
       navigate('/home');
     }
 
-    const Poll = {
-        status: "",
+    const [Poll, setPoll] = useState([
+        status: "closed",
         description: '',
         startTime:'',
         endTime:'',
         votingBar:'',
         registrated:'',
-        };
+        ]);
     const [options,setOptions] = useState([])
     componentDidMount() {
-    const data = Web3Service.call("getResult");
-    this.setState({ Pol: data });
+        const data = Web3Service.call("getResult");
+        setPoll({ 
+            Poll.description: data.question, 
+            Poll.startTime:data.birth_time, 
+            Poll.endTime: data.end_time, 
+            Poll.votingBar: data.voting_bar,
+            Poll.registered: data.registered_num
+        });
+        setOptions(data.options);
   }
 
     return (
