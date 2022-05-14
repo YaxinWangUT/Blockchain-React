@@ -29,12 +29,21 @@ export default function CreatePoll() {
         {option: ''},
         {option: ''},
     ])
+    const [option,setOption] = useState([]) 
+    const handleOption=(value,index)=>()=>{
+        const newOption=[...option];
+        newStatus.splice(index,value);
+        }
+        setOption(newStatus);
+    }
+
     const [descript, setDescript] = useState("");
     const [STime, setSTime] = useSTime("");
     const [RTime, setRTime] = useRTime("");
     const [VTime, setVTime] = useVTime("");
     const [Bar, setBar] = useBar("");
     const handleSubmit = (event) => {
+        
         Web3Service.execute(create_poll, description, options, STime, RTime, VTime, Bar);
         console.log("poll created");
         console.log(Poll.getState());
@@ -95,7 +104,7 @@ export default function CreatePoll() {
             <Typography variant="h5" >designing options:</Typography>
             {options.map((option,index)=>(
                 <div key={index}>
-                    <TextField id="option" label={index+1} variant="standard" onChange = {(event,index) => setOption(event.target.value)}/>
+                    <TextField id="option" label={index+1} variant="standard" onChange = {(event,index) => handleOption(event.target.value)}/>
                     <IconButton onClick={handleAddOption}><AddIcon/></IconButton>
                     <IconButton onClick={handleDropOption}><DeleteIcon/></IconButton>
                 </div>
