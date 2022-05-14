@@ -23,20 +23,27 @@ export default function Vote() {
     const params = useParams();
     const poll_id = params.id;
     let navigate = useNavigate();
-    
-    const Poll = {
-        status: "voting",
-        description: 'Who is the best teacher in our university?',
-        };
-    const [options,setOptions] = useState([
-            {option: 'Professor Suzanne Barber'},
-            {option: 'Professor Daniel P.Miranker'},
-            {option: 'Professor Abhay Samant'},
-    ])
-
+    constructor() {
+    console.log(Poll.getState());
+    super();
+    this.state = {
+      Poll = {
+        'status': "voting",
+        'description': '',
+        }
+    };
+  }
+    const [options,setOptions] = useState([])
+    const [choice,setChoice]=useChoice()
+    componentDidMount() {
+    const data = Web3Service.call("getRegisterPoll");
+    this.setState({ Poll.description: data.question });
+    setOptions(data.options);
+  }
 
     const handleSubmit = (event) => {
-        console.log("poll created")
+        Web3Service.execute("vote",choice);
+        console.log("vote submitted")
         navigate('/voted');
     }
     const [checked, setChecked]=useState([0]);
@@ -47,6 +54,7 @@ export default function Vote() {
             newChecked.push(value);
         }else{
             newChecked.splice(currentIndex,1);
+            setChoice(options.splice(currentIndex))
         }
         setChecked(newChecked);
     }
