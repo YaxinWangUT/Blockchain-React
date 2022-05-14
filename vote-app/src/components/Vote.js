@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { useParams} from "react-router";
 import { List } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import Web3Service from "../blockchain/web3.service"
 
 const mdTheme = createTheme({
     palette: {
