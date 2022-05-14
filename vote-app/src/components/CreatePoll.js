@@ -11,6 +11,7 @@ import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { useNavigate } from 'react-router-dom';
+import Web3Service from "../blockchain/web3.service";
 
 import Poll from "../Utils/setLocal"
 
@@ -29,7 +30,12 @@ export default function CreatePoll() {
         {option: ''},
     ])
     const [descript, setDescript] = useState("");
+    const [STime, setSTime] = useSTime("");
+    const [RTime, setRTime] = useRTime("");
+    const [VTime, setVTime] = useVTime("");
+    const [Bar, setBar] = useBar("");
     const handleSubmit = (event) => {
+        Web3Service.execute(create_poll, description, options, STime, RTime, VTime, Bar);
         console.log("poll created");
         console.log(Poll.getState());
         Poll.questionCreated(descript);
@@ -81,15 +87,15 @@ export default function CreatePoll() {
             variant="filled" 
             value = {descript}
             onChange = {(e) => setDescript(e.target.value)} /></div>
-            <div><TextField id="time1" label="starting time" variant="filled"/></div>
-            <div><TextField id="time2" label="registration end time" variant="filled"/></div>
-            <div><TextField id="time3" label="voting end time" variant="filled"/></div>
-            <div><TextField id="bar" label="voting bar" variant="filled"/></div>
+            <div><TextField id="time1" label="starting time" variant="filled" onChange = {(event) => setSTime(event.target.value)}/></div>
+            <div><TextField id="time2" label="registration end time" variant="filled" onChange = {(event) => setRTime(event.target.value)}/></div>
+            <div><TextField id="time3" label="voting end time" variant="filled" onChange = {(event) => setVTime(event.target.value)}/></div>
+            <div><TextField id="bar" label="voting bar" variant="filled" onChange = {(event) => setBar(event.target.value)}/></div>
             <hr/>
             <Typography variant="h5" >designing options:</Typography>
             {options.map((option,index)=>(
                 <div key={index}>
-                    <TextField id="option" label={index+1} variant="standard" />
+                    <TextField id="option" label={index+1} variant="standard" onChange = {(event,index) => setOption(event.target.value)}/>
                     <IconButton onClick={handleAddOption}><AddIcon/></IconButton>
                     <IconButton onClick={handleDropOption}><DeleteIcon/></IconButton>
                 </div>
