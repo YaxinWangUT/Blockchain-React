@@ -29,12 +29,11 @@ export default function CreatePoll() {
         {option: ''},
         {option: ''},
     ])
-    const [option,setOption] = useState([]) 
-    const handleOption=(value,index)=>()=>{
-        const newOption=[...option];
-        newStatus.splice(index,value);
+    const handleOptions=(value,index)=>()=>{
+        const newOption=[...options];
+        newOption.push(index,{option: value});
         }
-        setOption(newStatus);
+        setOptions(newOption);
     }
 
     const [descript, setDescript] = useState("");
@@ -43,7 +42,6 @@ export default function CreatePoll() {
     const [VTime, setVTime] = useVTime("");
     const [Bar, setBar] = useBar("");
     const handleSubmit = (event) => {
-        
         Web3Service.execute(create_poll, description, options, STime, RTime, VTime, Bar);
         console.log("poll created");
         console.log(Poll.getState());
